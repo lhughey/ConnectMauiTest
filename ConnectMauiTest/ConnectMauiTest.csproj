@@ -43,6 +43,9 @@
       <CodesignProvision>OnBoard Connect Adhoc</CodesignProvision>
       <CodesignKey>Apple Distribution: Industrial Training Services, Inc. (V4BSB5L66X)</CodesignKey>
     </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
+      <AndroidDexTool>d8</AndroidDexTool>
+    </PropertyGroup>
     <ItemGroup>
         <!-- App Icon -->
         <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4"/>
