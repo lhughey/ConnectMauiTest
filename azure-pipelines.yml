@@ -73,9 +73,9 @@ stages:
   
 
     - task: vs-publisher-473885.motz-mobile-buildtasks.ios-bundle-version.ios-bundle-version@1
-      displayName: 'Bump iOS Versions in Connect.iOS/Info.plist'
+      displayName: 'Bump iOS Versions in  Platforms/iOS/Info.plist'
       inputs:
-        sourcePath: Connect.iOS/Info.plist
+        sourcePath: Platforms/iOS/Info.plist
         versionName: '$(VersionMajor).$(VersionMinor).$(VersionDate)'
 
       
@@ -206,6 +206,14 @@ stages:
       inputs:
         sourcePath: Connect.iOS/Info.plist
         versionName: '$(VersionMajor).$(VersionMinor).$(VersionDate)'
+        
+
+    - task: vs-publisher-473885.motz-mobile-buildtasks.android-manifest-version.android-manifest-version@1
+      displayName: 'Bump Android Versions Platforms/Android/AndroidManifest.xml'
+      inputs:
+        sourcePath: Platforms/Android/AndroidManifest.xml
+        versionName: '$(VersionMajor).$(VersionMinor).$(VersionDate)'
+
 
     # build project
     #NOTE: the iOS and Android versioning is different. Android requires a int appversion.
