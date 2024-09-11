@@ -75,7 +75,7 @@ stages:
     - task: vs-publisher-473885.motz-mobile-buildtasks.ios-bundle-version.ios-bundle-version@1
       displayName: 'Bump iOS Versions in  Platforms/iOS/Info.plist'
       inputs:
-        sourcePath: Platforms/iOS/Info.plist
+        sourcePath: $(system.defaultworkingdirectory)/Platforms/iOS/Info.plist
         versionName: '$(VersionMajor).$(VersionMinor).$(VersionDate)'
 
       
