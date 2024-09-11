@@ -63,6 +63,21 @@ stages:
         # Install all workloads your solution is supported
     - powershell: dotnet workload install maui-android maui-ios maui-tizen
       displayName: Install .NET MAUI Workload
+    
+    #Your build pipeline references an undefined variable named ‘date +%y%m%d’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+
+    - script: |
+        # Set the version date
+        echo "##vso[task.setvariable variable=VersionDate]$(date +%y%m%d)"
+      displayName: 'Set Version Date'
+  
+
+    - task: vs-publisher-473885.motz-mobile-buildtasks.ios-bundle-version.ios-bundle-version@1
+      displayName: 'Bump iOS Versions in Connect.iOS/Info.plist'
+      inputs:
+        sourcePath: Connect.iOS/Info.plist
+        versionName: '$(VersionMajor).$(VersionMinor).$(VersionDate)'
+
       
   # build project
     - task: CmdLine@2
@@ -181,6 +196,16 @@ stages:
     - powershell: dotnet workload install maui-android maui-ios maui-tizen
       displayName: Install .NET MAUI Workload
 
+    - script: |
+        # Set the version date
+        echo "##vso[task.setvariable variable=VersionDate]$(date +%y%m%d)"
+      displayName: 'Set Version Date'
+  
+    - task: vs-publisher-473885.motz-mobile-buildtasks.ios-bundle-version.ios-bundle-version@1
+      displayName: 'Bump iOS Versions in Connect.iOS/Info.plist'
+      inputs:
+        sourcePath: Connect.iOS/Info.plist
+        versionName: '$(VersionMajor).$(VersionMinor).$(VersionDate)'
 
     # build project
     #NOTE: the iOS and Android versioning is different. Android requires a int appversion.
