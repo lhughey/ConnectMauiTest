@@ -27,6 +27,8 @@ stages:
     
     steps:
     
+
+    
     - script: |
         echo Environment $(ENVIRONMENT)
         echo iOS app ID: $(app-id-ios) 
@@ -34,6 +36,12 @@ stages:
         echo Agent.Id $(Agent.Id)
         echo Agent.Name $(Agent.Name)
       displayName: Display Vars
+    
+    - task: vs-publisher-473885.motz-mobile-buildtasks.ios-bundle-version.ios-bundle-version@1
+      displayName: 'Bump iOS Versions in  Platforms/iOS/Info.plist'
+      inputs:
+        sourcePath: '$(system.defaultworkingdirectory)/ConnectMauiTest/ConnectMauiTest/Platforms/iOS/Info.plist'
+        versionName: '$(VersionMajor).$(VersionMinor).$(VersionDate)'
     
     - task: InstallAppleCertificate@2
       inputs:
@@ -75,7 +83,7 @@ stages:
     - task: vs-publisher-473885.motz-mobile-buildtasks.ios-bundle-version.ios-bundle-version@1
       displayName: 'Bump iOS Versions in  Platforms/iOS/Info.plist'
       inputs:
-        sourcePath: //Platforms/iOS/Info.plist
+        sourcePath: /Platforms/iOS/Info.plist
         versionName: '$(VersionMajor).$(VersionMinor).$(VersionDate)'
 
       
