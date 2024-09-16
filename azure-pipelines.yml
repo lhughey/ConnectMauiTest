@@ -49,7 +49,7 @@ stages:
     - task: vs-publisher-473885.motz-mobile-buildtasks.ios-bundle-version.ios-bundle-version@1
       displayName: 'Bump iOS Versions in  Platforms/iOS/Info.plist up top'
       inputs:
-        sourcePath: '$(system.defaultworkingdirectory)/ConnectMauiTest/ConnectMauiTest/Platforms/iOS/Info.plist'
+        sourcePath: '$(System.DefaultWorkingDirectory)/ConnectMauiTest/Platforms/iOS/Info.plist'
         versionName: '$(VersionMajor).$(VersionMinor).$(VersionDate)'
       
     #------------------------------------------------------------------
