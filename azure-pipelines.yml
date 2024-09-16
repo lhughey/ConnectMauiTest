@@ -15,6 +15,9 @@ parameters:
     - Production
     - Staging
 
+variables:
+  projectPathBase: '$(Build.SourcesDirectory)/ConnectMauiTest'
+
 stages:
   # Stage for MAUI iOS
 - stage: build_maui_ios
@@ -47,11 +50,23 @@ stages:
   
 
     - task: vs-publisher-473885.motz-mobile-buildtasks.ios-bundle-version.ios-bundle-version@1
-      displayName: 'Bump iOS Versions in  Platforms/iOS/Info.plist up top'
+      displayName: 'Bump iOS Versions in  Platforms/iOS/Info.plist up 1'
       inputs:
-        sourcePath: '$(System.DefaultWorkingDirectory)/ConnectMauiTest/Platforms/iOS/Info.plist'
+        sourcePath: '$(projectPathBase)/Platforms/iOS/Info.plist'
+        versionName: '$(VersionMajor).$(VersionMinor).$(VersionDate)'
+
+    
+    - task: vs-publisher-473885.motz-mobile-buildtasks.ios-bundle-version.ios-bundle-version@1
+      displayName: 'Bump iOS Versions in  Platforms/iOS/Info.plist up 2'
+      inputs:
+        sourcePath: '$(Build.SourcesDirectory)/Platforms/iOS/Info.plist'
         versionName: '$(VersionMajor).$(VersionMinor).$(VersionDate)'
       
+    - task: vs-publisher-473885.motz-mobile-buildtasks.ios-bundle-version.ios-bundle-version@1
+      displayName: 'Bump iOS Versions in  Platforms/iOS/Info.plist up 3'
+      inputs:
+        sourcePath: '/Platforms/iOS/Info.plist'
+        versionName: '$(VersionMajor).$(VersionMinor).$(VersionDate)'
     #------------------------------------------------------------------
     
     - task: InstallAppleCertificate@2
@@ -92,10 +107,11 @@ stages:
   
 
     - task: vs-publisher-473885.motz-mobile-buildtasks.ios-bundle-version.ios-bundle-version@1
-      displayName: 'Bump iOS Versions in  Platforms/iOS/Info.plist'
+      displayName: 'Bump iOS Versions in  Platforms/iOS/Info.plist up'
       inputs:
-        sourcePath: /Platforms/iOS/Info.plist
+        sourcePath: '$(System.DefaultWorkingDirectory)/ConnectMauiTest/Platforms/iOS/Info.plist'
         versionName: '$(VersionMajor).$(VersionMinor).$(VersionDate)'
+      
 
       
   # build project
