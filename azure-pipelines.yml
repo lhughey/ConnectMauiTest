@@ -201,7 +201,7 @@ stages:
       displayName: Install .NET MAUI Workload
 
     - script: |
-        # Set the version date
+        REM Set the version date
         echo "##vso[task.setvariable variable=VersionDate]$(date +%y%m%d)"
       displayName: 'Set Version Date'
        
