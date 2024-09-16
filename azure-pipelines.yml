@@ -37,11 +37,22 @@ stages:
         echo Agent.Name $(Agent.Name)
       displayName: Display Vars
     
+    
+    #------------------------------------------------------------------
+
+    - script: |
+        # Set the version date
+        echo "##vso[task.setvariable variable=VersionDate]$(date +%y%m%d)"
+      displayName: 'Set Version Date Top'
+  
+
     - task: vs-publisher-473885.motz-mobile-buildtasks.ios-bundle-version.ios-bundle-version@1
-      displayName: 'Bump iOS Versions in  Platforms/iOS/Info.plist'
+      displayName: 'Bump iOS Versions in  Platforms/iOS/Info.plist up top'
       inputs:
         sourcePath: '$(system.defaultworkingdirectory)/ConnectMauiTest/ConnectMauiTest/Platforms/iOS/Info.plist'
         versionName: '$(VersionMajor).$(VersionMinor).$(VersionDate)'
+      
+    #------------------------------------------------------------------
     
     - task: InstallAppleCertificate@2
       inputs:
