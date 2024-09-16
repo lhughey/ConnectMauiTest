@@ -56,11 +56,11 @@ stages:
         versionName: '$(VersionMajor).$(VersionMinor).$(VersionDate)'
 
     
-    - task: vs-publisher-473885.motz-mobile-buildtasks.ios-bundle-version.ios-bundle-version@1
-      displayName: 'Bump iOS Versions in  Platforms/iOS/Info.plist up 2'
-      inputs:
-        sourcePath: '$(Build.SourcesDirectory)/Platforms/iOS/Info.plist'
-        versionName: '$(VersionMajor).$(VersionMinor).$(VersionDate)'
+    # - task: vs-publisher-473885.motz-mobile-buildtasks.ios-bundle-version.ios-bundle-version@1
+    #   displayName: 'Bump iOS Versions in  Platforms/iOS/Info.plist up 2'
+    #   inputs:
+    #     sourcePath: '$(Build.SourcesDirectory)/Platforms/iOS/Info.plist'
+    #     versionName: '$(VersionMajor).$(VersionMinor).$(VersionDate)'
       
     - task: vs-publisher-473885.motz-mobile-buildtasks.ios-bundle-version.ios-bundle-version@1
       displayName: 'Bump iOS Versions in  Platforms/iOS/Info.plist up 3'
