@@ -15,6 +15,9 @@ parameters:
     - Production
     - Staging
 
+variables:
+  projectPathBase: '$(Build.SourcesDirectory)/ConnectMauiTest'
+
 stages:
   # Stage for MAUI iOS
 - stage: build_maui_ios
@@ -36,23 +39,6 @@ stages:
         echo Agent.Id $(Agent.Id)
         echo Agent.Name $(Agent.Name)
       displayName: Display Vars
-    
-    
-    #------------------------------------------------------------------
-
-    - script: |
-        # Set the version date
-        echo "##vso[task.setvariable variable=VersionDate]$(date +%y%m%d)"
-      displayName: 'Set Version Date Top'
-  
-
-    - task: vs-publisher-473885.motz-mobile-buildtasks.ios-bundle-version.ios-bundle-version@1
-      displayName: 'Bump iOS Versions in  Platforms/iOS/Info.plist up top'
-      inputs:
-        sourcePath: '$(system.defaultworkingdirectory)/ConnectMauiTest/ConnectMauiTest/Platforms/iOS/Info.plist'
-        versionName: '$(VersionMajor).$(VersionMinor).$(VersionDate)'
-      
-    #------------------------------------------------------------------
     
     - task: InstallAppleCertificate@2
       inputs:
@@ -92,11 +78,10 @@ stages:
   
 
     - task: vs-publisher-473885.motz-mobile-buildtasks.ios-bundle-version.ios-bundle-version@1
-      displayName: 'Bump iOS Versions in  Platforms/iOS/Info.plist'
+      displayName: 'Bump iOS Versions in  Platforms/iOS/Info.plist up'
       inputs:
-        sourcePath: /Platforms/iOS/Info.plist
+        sourcePath: '$(projectPathBase)/Platforms/iOS/Info.plist'
         versionName: '$(VersionMajor).$(VersionMinor).$(VersionDate)'
-
       
   # build project
     - task: CmdLine@2
@@ -216,23 +201,16 @@ stages:
       displayName: Install .NET MAUI Workload
 
     - script: |
-        # Set the version date
+        REM Set the version date
         echo "##vso[task.setvariable variable=VersionDate]$(date +%y%m%d)"
       displayName: 'Set Version Date'
-  
-    - task: vs-publisher-473885.motz-mobile-buildtasks.ios-bundle-version.ios-bundle-version@1
-      displayName: 'Bump iOS Versions in Connect.iOS/Info.plist'
-      inputs:
-        sourcePath: Connect.iOS/Info.plist
-        versionName: '$(VersionMajor).$(VersionMinor).$(VersionDate)'
-        
+       
 
     - task: vs-publisher-473885.motz-mobile-buildtasks.android-manifest-version.android-manifest-version@1
       displayName: 'Bump Android Versions Platforms/Android/AndroidManifest.xml'
       inputs:
-        sourcePath: Platforms/Android/AndroidManifest.xml
+        sourcePath: '$(projectPathBase)/Platforms/Android/AndroidManifest.xml'
         versionName: '$(VersionMajor).$(VersionMinor).$(VersionDate)'
-
 
     # build project
     #NOTE: the iOS and Android versioning is different. Android requires a int appversion.
